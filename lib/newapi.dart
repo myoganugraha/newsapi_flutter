@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:workshop_newsapi/DetailBerita.dart';
 
 import 'API.dart';
 
@@ -41,17 +42,25 @@ class _NewsAPIState extends State<NewsAPIIndonesia>{
                       elevation: 3.0,
                       child: new ListTile(
                         onTap: (){
-                          _launchURL(snapshot.data[index].url);
+                          Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => DetailBerita(
+                                          newsModel: snapshot.data[index],
+                                        )
+                            ));
                           },
                         leading: new CircleAvatar(
                           backgroundImage: NetworkImage(snapshot.data[index].urlToImage == null ? snapshot.data[index].author.toString().substring(0,1) : snapshot.data[index].urlToImage),
                           ),
 
                         title: new Text(snapshot.data[index].title,
+                          textAlign: TextAlign.justify,
                           style: TextStyle(fontWeight: FontWeight.bold),
                           ),
 
-                        subtitle: new Text(snapshot.data[index].content == null ? '' : snapshot.data[index].content),
+                        subtitle: new Text(
+                          snapshot.data[index].description ?? '' ,
+                          textAlign: TextAlign.justify,),
                       ),
                     ),
                 ],

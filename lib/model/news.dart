@@ -5,6 +5,7 @@ class News{
   String url;
   String urlToImage;
   String content;
+  Source source;
 
   News({
     this.author,
@@ -12,7 +13,8 @@ class News{
     this.description,
     this.url,
     this.urlToImage,
-    this.content
+    this.content,
+    this.source
   });
 
   factory News.fromJson(Map<String, dynamic> json){
@@ -22,7 +24,25 @@ class News{
       description: json['description'],
       url: json['url'],
       urlToImage: json['urlToImage'],
-      content: json['content']
+      content: json['content'],
+      source: Source.fromJson(json['source'])
+    );
+  }
+}
+
+class Source{
+  String id;
+  String name;
+
+  Source({
+    this.id,
+    this.name
+  });
+
+  factory Source.fromJson(Map<String, dynamic> json){
+    return Source(
+      id:json['id'],
+      name: json['name']
     );
   }
 }
